@@ -66,47 +66,62 @@ void mem_write_32(uint32_t address, uint32_t value)
 
 
 void control_hazard() {
-    // Extract registers from the instruction currently in the ID stage
-    uint8_t rs1 = (IF_ID.IR >> 15) & BIT_MASK_5;
-    uint8_t rs2 = (IF_ID.IR >> 20) & BIT_MASK_5;
-
-    // Extract destination registers from instructions ahead in the pipeline
-    uint8_t rd_ex = (ID_EX.IR >> 7) & BIT_MASK_5;
-    uint8_t rd_mem = (EX_MEM.IR >> 7) & BIT_MASK_5;
+    uint32_t bincmd = IF_ID.IR;
+    if (!bincmd) { bubble = false; return; }
     
-    // Check if the instruction in EX is a LOAD
+    uint8_t opcode = GET_OPCODE(bincmd);
+    uint8_t rs1 = 0, rs2 = 0;
+    bool uses_rs1 = false, uses_rs2 = false;
+
+    switch (opcode) {
+        case R_OPCODE:
+        case STORE_OPCODE:
+        case BRANCH_OPCODE:
+            rs1 = (bincmd >> 15) & BIT_MASK_5;
+            rs2 = (bincmd >> 20) & BIT_MASK_5;
+            uses_rs1 = true;
+            uses_rs2 = true;
+            break;
+        case IMM_ALU_OPCODE:
+        case LOAD_OPCODE:
+        case JALR_OPCODE:
+            rs1 = (bincmd >> 15) & BIT_MASK_5;
+            uses_rs1 = true;
+            break;
+    }
+
+    uint8_t rd_ex = (ID_EX.IR >> 7) & BIT_MASK_5;
     uint8_t opcode_ex = GET_OPCODE(ID_EX.IR);
+    int ex_regwrite = ID_EX.IR && (opcode_ex == R_OPCODE || opcode_ex == IMM_ALU_OPCODE || opcode_ex == LOAD_OPCODE || opcode_ex == JAL_OPCODE || opcode_ex == JALR_OPCODE);
+
+    uint8_t rd_mem = (EX_MEM.IR >> 7) & BIT_MASK_5;
+    uint8_t opcode_mem = GET_OPCODE(EX_MEM.IR);
+    int mem_regwrite = EX_MEM.IR && (opcode_mem == R_OPCODE || opcode_mem == IMM_ALU_OPCODE || opcode_mem == LOAD_OPCODE || opcode_mem == JAL_OPCODE || opcode_mem == JALR_OPCODE);
 
     bool hazard = false;
 
-	//also check if rs1 or rs2 matches rd_wb (from the MEM_WB register
-	uint8_t rd_wb = (MEM_WB.IR >> 7) & BIT_MASK_5;
-	
     if (ENABLE_FORWARDING) {
-        // CASE: Forwarding is ON
-        // Only stall for a Load-Use hazard (data not ready until MEM stage)
-        if (opcode_ex == LOAD_OPCODE) {
-            if ((rd_ex != 0) && (rd_ex == rs1 || rd_ex == rs2)) {
+        // Forwarding is ON: Only stall for a Load-Use hazard (data not ready until MEM stage completes)
+        if (opcode_ex == LOAD_OPCODE && ex_regwrite && rd_ex != 0) {
+            if ((uses_rs1 && rd_ex == rs1) || (uses_rs2 && rd_ex == rs2)) {
                 hazard = true;
             }
         }
     } else {
-        // CASE: Forwarding is OFF
-        // Stall for ANY dependency in EX or MEM stages
-        bool hazard_rs1 = (rs1 != 0) && ((rs1 == rd_ex) || (rs1 == rd_mem));
-        bool hazard_rs2 = (rs2 != 0) && ((rs2 == rd_ex) || (rs2 == rd_mem));
-        
-        if (hazard_rs1 || hazard_rs2) {
-            hazard = true;
+        // Forwarding is OFF: Stall for ANY data dependency in EX or MEM stages
+        if (ex_regwrite && rd_ex != 0) {
+            if ((uses_rs1 && rd_ex == rs1) || (uses_rs2 && rd_ex == rs2)) {
+                hazard = true;
+            }
+        }
+        if (!hazard && mem_regwrite && rd_mem != 0) {
+            if ((uses_rs1 && rd_mem == rs1) || (uses_rs2 && rd_mem == rs2)) {
+                hazard = true;
+            }
         }
     }
 
-    if (hazard) {
-        bubble = true;
-        ID_EX.IR = 0;   // Insert NOP to "squash" the next stage
-    } else {
-        bubble = false;
-    }
+    bubble = hazard;
 }
 //forwarding function
 // Forwarding function
@@ -459,11 +474,13 @@ void handle_pipeline()
 	if(!bubble) {
 		ID();
 		IF();
-		
+	} else {
+		ID_EX.IR = 0;
+		ID_EX.A = 0;
+		ID_EX.B = 0;
+		ID_EX.imm = 0;
 	}
 	bubble = false;
-	
-	
 }
 
 /************************************************************/
@@ -715,60 +732,6 @@ void ID()
     uint8_t opcode = GET_OPCODE(bincmd);
 
     uint8_t rs1 = 0, rs2 = 0, rd = 0;
-
-    //first pass. extract rs1/rs2 for hazard detection
-    switch (opcode) {
-        case R_OPCODE:
-            rs1 = (bincmd >> 15) & BIT_MASK_5;
-            rs2 = (bincmd >> 20) & BIT_MASK_5;
-            break;
-        case IMM_ALU_OPCODE:
-        case LOAD_OPCODE:
-        case JALR_OPCODE:
-            rs1 = (bincmd >> 15) & BIT_MASK_5;
-            break;
-        case STORE_OPCODE:
-            rs1 = (bincmd >> 15) & BIT_MASK_5;
-            rs2 = (bincmd >> 20) & BIT_MASK_5;
-            break;
-        default:
-            break;
-    }
-
-    int stall = 0;
-
-    if (!ENABLE_FORWARDING) {
-        uint8_t idex_rd = (ID_EX.IR  >> 7) & BIT_MASK_5;
-        uint8_t exmem_rd = (EX_MEM.IR >> 7) & BIT_MASK_5;
-
-        int idex_regwrite = ID_EX.IR  && (GET_OPCODE(ID_EX.IR) == R_OPCODE || GET_OPCODE(ID_EX.IR) == IMM_ALU_OPCODE || GET_OPCODE(ID_EX.IR) == LOAD_OPCODE);
-        int exmem_regwrite = EX_MEM.IR && (GET_OPCODE(EX_MEM.IR) == R_OPCODE || GET_OPCODE(EX_MEM.IR) == IMM_ALU_OPCODE || GET_OPCODE(EX_MEM.IR) == LOAD_OPCODE);
-
-        if (idex_regwrite && idex_rd != 0) {
-            if ((rs1 != 0 && idex_rd == rs1) || (rs2 != 0 && idex_rd == rs2))
-                stall = 1;
-        }
-        if (!stall && exmem_regwrite && exmem_rd != 0) {
-            if ((rs1 != 0 && exmem_rd == rs1) || (rs2 != 0 && exmem_rd == rs2))
-                stall = 1;
-        }
-    } else {
-        uint8_t idex_rd = (ID_EX.IR >> 7) & BIT_MASK_5;
-        int idex_is_load = ID_EX.IR && (GET_OPCODE(ID_EX.IR) == LOAD_OPCODE);
-        if (idex_is_load && idex_rd != 0) {
-            if ((rs1 != 0 && idex_rd == rs1) || (rs2 != 0 && idex_rd == rs2))
-                stall = 1;
-        }
-    }
-
-    if (stall) {
-        ID_EX.IR = 0;
-        ID_EX.A = 0;
-        ID_EX.B = 0;
-        ID_EX.imm = 0;
-        bubble = true;
-        return;
-    }
 
     //if no hazard
     switch (opcode) {
