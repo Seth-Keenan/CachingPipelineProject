@@ -5,6 +5,7 @@ class CacheLine:
         self.dirty     = False
         self.tag       = None
         self.data      = [0] * block_size
+        self.prefetched = False
 
     def copy(self) -> "CacheLine":
         snapshot       = CacheLine(len(self.data))
@@ -12,6 +13,7 @@ class CacheLine:
         snapshot.dirty = self.dirty
         snapshot.tag   = self.tag
         snapshot.data  = self.data[:]
+        snapshot.prefetched = self.prefetched
         return snapshot
 
     def invalidate(self):

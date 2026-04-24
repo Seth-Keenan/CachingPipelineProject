@@ -108,6 +108,13 @@ def main():
     print(l1.report())
     print(l2.report())
 
+    p = l1.prefetcher
+    print("\n[Prefetcher Performance]")
+    print(f"Prefetches Issued: {p.prefetches_issued}")
+    print(f"Prefetches Useful: {p.prefetches_useful}")
+    print(f"Prefetches Useless: {p.prefetches_useless}")
+    print(f"Prefetch Coverage: {p.coverage() * 100:.2f}%")
+
     print("\n--- [CPI Analysis Approximation] ---")
     # Base in-order CPI is roughly 1.0 (excluding branches/flushes). 
     print(f"Stall CPI Component: {total_stalls} stalls / ~(Instruction Fetches) = {(total_stalls/instructions_estimated if instructions_estimated else 0):.4f}")

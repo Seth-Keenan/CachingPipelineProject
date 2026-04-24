@@ -1,5 +1,6 @@
 from enums import WritePolicy, ReplacementPolicy
 from cache import Cache
+from next_line_prefetcher import NextLinePrefetcher
 
 
 def build_hierarchy(
@@ -35,4 +36,7 @@ def build_hierarchy(
         replacement   = l1_replacement,
         next_level    = l2,
     )
+
+    l1_prefetcher = NextLinePrefetcher(l1, l1_block_size)
+    l1.prefetcher = l1_prefetcher
     return l1, l2

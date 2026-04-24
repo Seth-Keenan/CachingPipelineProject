@@ -3,6 +3,7 @@ from math import log2
 from enums import WritePolicy, ReplacementPolicy, Organization
 from cache_set import CacheSet
 from replacement import make_replacement_policy
+from next_line_prefetcher import NextLinePrefetcher
 
 
 class Cache:
@@ -15,6 +16,7 @@ class Cache:
         write_policy:   WritePolicy       = WritePolicy.WRITE_BACK,
         replacement:    ReplacementPolicy = ReplacementPolicy.LRU,
         next_level:     "Cache"           = None,
+        next_line_prefetcher: NextLinePrefetcher = None,
     ):
         self._validate(cache_size, block_size)
 
@@ -25,6 +27,7 @@ class Cache:
         self.write_policy  = write_policy
         self.replacement   = replacement
         self.next_level    = next_level
+        self.prefetcher    = next_line_prefetcher
 
         self.num_blocks  = cache_size // block_size
         self.num_sets    = max(self.num_blocks // associativity, 1)
@@ -49,14 +52,21 @@ class Cache:
         self.stats["reads"] += 1
         tag, set_idx, _ = self._decompose(address)
 
-        hit, _ = self.sets[set_idx].lookup(tag)
+        hit, way = self.sets[set_idx].lookup(tag)
 
         if hit:
             self.stats["read_hits"] += 1
+            if self.prefetcher:
+                hit_line = self.sets[set_idx].lines[way]
+                self.prefetcher.hitPrefetch(hit_line)
             return True
 
         self.stats["read_misses"] += 1
         self._handle_miss(self.sets[set_idx], tag, address, is_write=False)
+
+        if self.prefetcher:
+            self.prefetcher.on_miss(address)
+
         return False
 
     def write(self, address: int) -> bool:
@@ -104,6 +114,8 @@ class Cache:
             self.stats["evictions"] += 1
             if evicted.dirty and self.write_policy == WritePolicy.WRITE_BACK:
                 self._writeback(evicted.tag)
+            if self.prefetcher and evicted.prefetched:
+                self.prefetcher.evictPrefetch(evicted)
 
         if is_write and self.write_policy == WritePolicy.WRITE_BACK:
             cache_set.mark_dirty(way)

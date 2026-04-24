@@ -31,6 +31,7 @@ class CacheSet:
         line.valid = True
         line.dirty = False
         line.tag   = tag
+        line.prefetched = False
 
         self.strategy.on_insert(way, tag)
         return evicted, way
