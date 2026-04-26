@@ -14,6 +14,8 @@ def build_hierarchy(
     l2_associativity: int              = 4,
     l2_write_policy:  WritePolicy      = WritePolicy.WRITE_BACK,
     l2_replacement:   ReplacementPolicy = ReplacementPolicy.LRU,
+    next_line_prefetcher: NextLinePrefetcher = None,
+    prefetcher_enabled = False,
 ) -> tuple[Cache, Cache]:
 
     
@@ -35,6 +37,8 @@ def build_hierarchy(
         write_policy  = l1_write_policy,
         replacement   = l1_replacement,
         next_level    = l2,
+        next_line_prefetcher = next_line_prefetcher,
+        prefetcher_enabled = prefetcher_enabled,
     )
 
     l1_prefetcher = NextLinePrefetcher(l1, l1_block_size)

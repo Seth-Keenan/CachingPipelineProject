@@ -1,5 +1,5 @@
 class NextLinePrefetcher:
-	def __init__(self, cache: Cache, block_size: int):
+	def __init__(self, cache, block_size: int):
 		self.cache = cache
 		self.block_size = block_size
 		self.prefetches_issued = 0

@@ -17,6 +17,7 @@ class Cache:
         replacement:    ReplacementPolicy = ReplacementPolicy.LRU,
         next_level:     "Cache"           = None,
         next_line_prefetcher: NextLinePrefetcher = None,
+        prefetcher_enabled = False,
     ):
         self._validate(cache_size, block_size)
 
@@ -28,6 +29,7 @@ class Cache:
         self.replacement   = replacement
         self.next_level    = next_level
         self.prefetcher    = next_line_prefetcher
+        self.prefetcher_enabled = prefetcher_enabled
 
         self.num_blocks  = cache_size // block_size
         self.num_sets    = max(self.num_blocks // associativity, 1)
@@ -65,7 +67,8 @@ class Cache:
         self._handle_miss(self.sets[set_idx], tag, address, is_write=False)
 
         if self.prefetcher:
-            self.prefetcher.on_miss(address)
+            if self.prefetcher_enabled:
+                self.prefetcher.on_miss(address)
 
         return False
 
