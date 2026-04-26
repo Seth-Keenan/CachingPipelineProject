@@ -1,0 +1,1043 @@
+
+
+--- TESTING L1 Cache Size Variations ---
+
+
+--- Testing L1 Cache Size: 4 KB ---
+
+
+--- [Simulation Completed] ---Total Stalls Handled: 500 cycles
+[Cache Performance Reports]
+==================================================
+Cache Report: L1
+==================================================
+  Organization : set-associative
+  Size         : 4096 B
+  Block Size   : 64 B
+  Associativity: 2-way
+  Write Policy : write-back
+  Replacement  : lru
+--------------------------------------------------
+  Total Accesses : 32
+  Reads          : 32  (hits: 27, misses: 5)
+  Writes         : 0 (hits: 0, misses: 0)
+  Hit Rate       : 0.8438
+  Miss Rate      : 0.1562
+  Evictions      : 0
+  Dirty Evictions: 0
+  Writebacks     : 0
+  Memory Traffic : 5 block transfers
+==================================================
+
+==================================================
+Cache Report: L2
+==================================================
+  Organization : set-associative
+  Size         : 262144 B
+  Block Size   : 64 B
+  Associativity: 4-way
+  Write Policy : write-back
+  Replacement  : lru
+--------------------------------------------------
+  Total Accesses : 5
+  Reads          : 5  (hits: 0, misses: 5)
+  Writes         : 0 (hits: 0, misses: 0)
+  Hit Rate       : 0.0000
+  Miss Rate      : 1.0000
+  Evictions      : 0
+  Dirty Evictions: 0
+  Writebacks     : 0
+  Memory Traffic : 5 block transfers
+==================================================
+
+--- [CPI Analysis Approximation] ---Stall CPI Component: 500 stalls / ~(Instruction Fetches) = 15.6250
+--- Testing L1 Cache Size: 8 KB ---
+
+
+--- [Simulation Completed] ---Total Stalls Handled: 500 cycles
+[Cache Performance Reports]
+==================================================
+Cache Report: L1
+==================================================
+  Organization : set-associative
+  Size         : 8192 B
+  Block Size   : 64 B
+  Associativity: 2-way
+  Write Policy : write-back
+  Replacement  : lru
+--------------------------------------------------
+  Total Accesses : 32
+  Reads          : 32  (hits: 27, misses: 5)
+  Writes         : 0 (hits: 0, misses: 0)
+  Hit Rate       : 0.8438
+  Miss Rate      : 0.1562
+  Evictions      : 0
+  Dirty Evictions: 0
+  Writebacks     : 0
+  Memory Traffic : 5 block transfers
+==================================================
+
+==================================================
+Cache Report: L2
+==================================================
+  Organization : set-associative
+  Size         : 262144 B
+  Block Size   : 64 B
+  Associativity: 4-way
+  Write Policy : write-back
+  Replacement  : lru
+--------------------------------------------------
+  Total Accesses : 5
+  Reads          : 5  (hits: 0, misses: 5)
+  Writes         : 0 (hits: 0, misses: 0)
+  Hit Rate       : 0.0000
+  Miss Rate      : 1.0000
+  Evictions      : 0
+  Dirty Evictions: 0
+  Writebacks     : 0
+  Memory Traffic : 5 block transfers
+==================================================
+
+--- [CPI Analysis Approximation] ---Stall CPI Component: 500 stalls / ~(Instruction Fetches) = 15.6250
+--- Testing L1 Cache Size: 16 KB ---
+
+
+--- [Simulation Completed] ---Total Stalls Handled: 500 cycles
+[Cache Performance Reports]
+==================================================
+Cache Report: L1
+==================================================
+  Organization : set-associative
+  Size         : 16384 B
+  Block Size   : 64 B
+  Associativity: 2-way
+  Write Policy : write-back
+  Replacement  : lru
+--------------------------------------------------
+  Total Accesses : 32
+  Reads          : 32  (hits: 27, misses: 5)
+  Writes         : 0 (hits: 0, misses: 0)
+  Hit Rate       : 0.8438
+  Miss Rate      : 0.1562
+  Evictions      : 0
+  Dirty Evictions: 0
+  Writebacks     : 0
+  Memory Traffic : 5 block transfers
+==================================================
+
+==================================================
+Cache Report: L2
+==================================================
+  Organization : set-associative
+  Size         : 262144 B
+  Block Size   : 64 B
+  Associativity: 4-way
+  Write Policy : write-back
+  Replacement  : lru
+--------------------------------------------------
+  Total Accesses : 5
+  Reads          : 5  (hits: 0, misses: 5)
+  Writes         : 0 (hits: 0, misses: 0)
+  Hit Rate       : 0.0000
+  Miss Rate      : 1.0000
+  Evictions      : 0
+  Dirty Evictions: 0
+  Writebacks     : 0
+  Memory Traffic : 5 block transfers
+==================================================
+
+--- [CPI Analysis Approximation] ---Stall CPI Component: 500 stalls / ~(Instruction Fetches) = 15.6250
+--- Testing L1 Cache Size: 32 KB ---
+
+
+--- [Simulation Completed] ---Total Stalls Handled: 500 cycles
+[Cache Performance Reports]
+==================================================
+Cache Report: L1
+==================================================
+  Organization : set-associative
+  Size         : 32768 B
+  Block Size   : 64 B
+  Associativity: 2-way
+  Write Policy : write-back
+  Replacement  : lru
+--------------------------------------------------
+  Total Accesses : 32
+  Reads          : 32  (hits: 27, misses: 5)
+  Writes         : 0 (hits: 0, misses: 0)
+  Hit Rate       : 0.8438
+  Miss Rate      : 0.1562
+  Evictions      : 0
+  Dirty Evictions: 0
+  Writebacks     : 0
+  Memory Traffic : 5 block transfers
+==================================================
+
+==================================================
+Cache Report: L2
+==================================================
+  Organization : set-associative
+  Size         : 262144 B
+  Block Size   : 64 B
+  Associativity: 4-way
+  Write Policy : write-back
+  Replacement  : lru
+--------------------------------------------------
+  Total Accesses : 5
+  Reads          : 5  (hits: 0, misses: 5)
+  Writes         : 0 (hits: 0, misses: 0)
+  Hit Rate       : 0.0000
+  Miss Rate      : 1.0000
+  Evictions      : 0
+  Dirty Evictions: 0
+  Writebacks     : 0
+  Memory Traffic : 5 block transfers
+==================================================
+
+--- [CPI Analysis Approximation] ---Stall CPI Component: 500 stalls / ~(Instruction Fetches) = 15.6250
+--- Testing L1 Cache Size: 64 KB ---
+
+
+--- [Simulation Completed] ---Total Stalls Handled: 500 cycles
+[Cache Performance Reports]
+==================================================
+Cache Report: L1
+==================================================
+  Organization : set-associative
+  Size         : 65536 B
+  Block Size   : 64 B
+  Associativity: 2-way
+  Write Policy : write-back
+  Replacement  : lru
+--------------------------------------------------
+  Total Accesses : 32
+  Reads          : 32  (hits: 27, misses: 5)
+  Writes         : 0 (hits: 0, misses: 0)
+  Hit Rate       : 0.8438
+  Miss Rate      : 0.1562
+  Evictions      : 0
+  Dirty Evictions: 0
+  Writebacks     : 0
+  Memory Traffic : 5 block transfers
+==================================================
+
+==================================================
+Cache Report: L2
+==================================================
+  Organization : set-associative
+  Size         : 262144 B
+  Block Size   : 64 B
+  Associativity: 4-way
+  Write Policy : write-back
+  Replacement  : lru
+--------------------------------------------------
+  Total Accesses : 5
+  Reads          : 5  (hits: 0, misses: 5)
+  Writes         : 0 (hits: 0, misses: 0)
+  Hit Rate       : 0.0000
+  Miss Rate      : 1.0000
+  Evictions      : 0
+  Dirty Evictions: 0
+  Writebacks     : 0
+  Memory Traffic : 5 block transfers
+==================================================
+
+--- [CPI Analysis Approximation] ---Stall CPI Component: 500 stalls / ~(Instruction Fetches) = 15.6250
+
+--- TESTING Block Size Variations ---
+
+
+--- Testing Block Size: 16 B ---
+
+
+--- [Simulation Completed] ---Total Stalls Handled: 800 cycles
+[Cache Performance Reports]
+==================================================
+Cache Report: L1
+==================================================
+  Organization : set-associative
+  Size         : 32768 B
+  Block Size   : 16 B
+  Associativity: 2-way
+  Write Policy : write-back
+  Replacement  : lru
+--------------------------------------------------
+  Total Accesses : 32
+  Reads          : 32  (hits: 24, misses: 8)
+  Writes         : 0 (hits: 0, misses: 0)
+  Hit Rate       : 0.7500
+  Miss Rate      : 0.2500
+  Evictions      : 0
+  Dirty Evictions: 0
+  Writebacks     : 0
+  Memory Traffic : 8 block transfers
+==================================================
+
+==================================================
+Cache Report: L2
+==================================================
+  Organization : set-associative
+  Size         : 262144 B
+  Block Size   : 16 B
+  Associativity: 4-way
+  Write Policy : write-back
+  Replacement  : lru
+--------------------------------------------------
+  Total Accesses : 8
+  Reads          : 8  (hits: 0, misses: 8)
+  Writes         : 0 (hits: 0, misses: 0)
+  Hit Rate       : 0.0000
+  Miss Rate      : 1.0000
+  Evictions      : 0
+  Dirty Evictions: 0
+  Writebacks     : 0
+  Memory Traffic : 8 block transfers
+==================================================
+
+--- [CPI Analysis Approximation] ---Stall CPI Component: 800 stalls / ~(Instruction Fetches) = 25.0000
+--- Testing Block Size: 32 B ---
+
+
+--- [Simulation Completed] ---Total Stalls Handled: 600 cycles
+[Cache Performance Reports]
+==================================================
+Cache Report: L1
+==================================================
+  Organization : set-associative
+  Size         : 32768 B
+  Block Size   : 32 B
+  Associativity: 2-way
+  Write Policy : write-back
+  Replacement  : lru
+--------------------------------------------------
+  Total Accesses : 32
+  Reads          : 32  (hits: 26, misses: 6)
+  Writes         : 0 (hits: 0, misses: 0)
+  Hit Rate       : 0.8125
+  Miss Rate      : 0.1875
+  Evictions      : 0
+  Dirty Evictions: 0
+  Writebacks     : 0
+  Memory Traffic : 6 block transfers
+==================================================
+
+==================================================
+Cache Report: L2
+==================================================
+  Organization : set-associative
+  Size         : 262144 B
+  Block Size   : 32 B
+  Associativity: 4-way
+  Write Policy : write-back
+  Replacement  : lru
+--------------------------------------------------
+  Total Accesses : 6
+  Reads          : 6  (hits: 0, misses: 6)
+  Writes         : 0 (hits: 0, misses: 0)
+  Hit Rate       : 0.0000
+  Miss Rate      : 1.0000
+  Evictions      : 0
+  Dirty Evictions: 0
+  Writebacks     : 0
+  Memory Traffic : 6 block transfers
+==================================================
+
+--- [CPI Analysis Approximation] ---Stall CPI Component: 600 stalls / ~(Instruction Fetches) = 18.7500
+--- Testing Block Size: 64 B ---
+
+
+--- [Simulation Completed] ---Total Stalls Handled: 500 cycles
+[Cache Performance Reports]
+==================================================
+Cache Report: L1
+==================================================
+  Organization : set-associative
+  Size         : 32768 B
+  Block Size   : 64 B
+  Associativity: 2-way
+  Write Policy : write-back
+  Replacement  : lru
+--------------------------------------------------
+  Total Accesses : 32
+  Reads          : 32  (hits: 27, misses: 5)
+  Writes         : 0 (hits: 0, misses: 0)
+  Hit Rate       : 0.8438
+  Miss Rate      : 0.1562
+  Evictions      : 0
+  Dirty Evictions: 0
+  Writebacks     : 0
+  Memory Traffic : 5 block transfers
+==================================================
+
+==================================================
+Cache Report: L2
+==================================================
+  Organization : set-associative
+  Size         : 262144 B
+  Block Size   : 64 B
+  Associativity: 4-way
+  Write Policy : write-back
+  Replacement  : lru
+--------------------------------------------------
+  Total Accesses : 5
+  Reads          : 5  (hits: 0, misses: 5)
+  Writes         : 0 (hits: 0, misses: 0)
+  Hit Rate       : 0.0000
+  Miss Rate      : 1.0000
+  Evictions      : 0
+  Dirty Evictions: 0
+  Writebacks     : 0
+  Memory Traffic : 5 block transfers
+==================================================
+
+--- [CPI Analysis Approximation] ---Stall CPI Component: 500 stalls / ~(Instruction Fetches) = 15.6250
+--- Testing Block Size: 128 B ---
+
+
+--- [Simulation Completed] ---Total Stalls Handled: 400 cycles
+[Cache Performance Reports]
+==================================================
+Cache Report: L1
+==================================================
+  Organization : set-associative
+  Size         : 32768 B
+  Block Size   : 128 B
+  Associativity: 2-way
+  Write Policy : write-back
+  Replacement  : lru
+--------------------------------------------------
+  Total Accesses : 32
+  Reads          : 32  (hits: 28, misses: 4)
+  Writes         : 0 (hits: 0, misses: 0)
+  Hit Rate       : 0.8750
+  Miss Rate      : 0.1250
+  Evictions      : 0
+  Dirty Evictions: 0
+  Writebacks     : 0
+  Memory Traffic : 4 block transfers
+==================================================
+
+==================================================
+Cache Report: L2
+==================================================
+  Organization : set-associative
+  Size         : 262144 B
+  Block Size   : 128 B
+  Associativity: 4-way
+  Write Policy : write-back
+  Replacement  : lru
+--------------------------------------------------
+  Total Accesses : 4
+  Reads          : 4  (hits: 0, misses: 4)
+  Writes         : 0 (hits: 0, misses: 0)
+  Hit Rate       : 0.0000
+  Miss Rate      : 1.0000
+  Evictions      : 0
+  Dirty Evictions: 0
+  Writebacks     : 0
+  Memory Traffic : 4 block transfers
+==================================================
+
+--- [CPI Analysis Approximation] ---Stall CPI Component: 400 stalls / ~(Instruction Fetches) = 12.5000
+--- Testing Block Size: 256 B ---
+
+
+--- [Simulation Completed] ---Total Stalls Handled: 400 cycles
+[Cache Performance Reports]
+==================================================
+Cache Report: L1
+==================================================
+  Organization : set-associative
+  Size         : 32768 B
+  Block Size   : 256 B
+  Associativity: 2-way
+  Write Policy : write-back
+  Replacement  : lru
+--------------------------------------------------
+  Total Accesses : 32
+  Reads          : 32  (hits: 28, misses: 4)
+  Writes         : 0 (hits: 0, misses: 0)
+  Hit Rate       : 0.8750
+  Miss Rate      : 0.1250
+  Evictions      : 0
+  Dirty Evictions: 0
+  Writebacks     : 0
+  Memory Traffic : 4 block transfers
+==================================================
+
+==================================================
+Cache Report: L2
+==================================================
+  Organization : set-associative
+  Size         : 262144 B
+  Block Size   : 256 B
+  Associativity: 4-way
+  Write Policy : write-back
+  Replacement  : lru
+--------------------------------------------------
+  Total Accesses : 4
+  Reads          : 4  (hits: 0, misses: 4)
+  Writes         : 0 (hits: 0, misses: 0)
+  Hit Rate       : 0.0000
+  Miss Rate      : 1.0000
+  Evictions      : 0
+  Dirty Evictions: 0
+  Writebacks     : 0
+  Memory Traffic : 4 block transfers
+==================================================
+
+--- [CPI Analysis Approximation] ---Stall CPI Component: 400 stalls / ~(Instruction Fetches) = 12.5000
+
+--- TESTING Associativity Variations ---
+
+
+--- Testing Associativity: 1-way ---
+
+
+--- [Simulation Completed] ---Total Stalls Handled: 570 cycles
+[Cache Performance Reports]
+==================================================
+Cache Report: L1
+==================================================
+  Organization : direct-mapped
+  Size         : 32768 B
+  Block Size   : 64 B
+  Associativity: 1-way
+  Write Policy : write-back
+  Replacement  : lru
+--------------------------------------------------
+  Total Accesses : 32
+  Reads          : 32  (hits: 20, misses: 12)
+  Writes         : 0 (hits: 0, misses: 0)
+  Hit Rate       : 0.6250
+  Miss Rate      : 0.3750
+  Evictions      : 8
+  Dirty Evictions: 0
+  Writebacks     : 0
+  Memory Traffic : 12 block transfers
+==================================================
+
+==================================================
+Cache Report: L2
+==================================================
+  Organization : set-associative
+  Size         : 262144 B
+  Block Size   : 64 B
+  Associativity: 4-way
+  Write Policy : write-back
+  Replacement  : lru
+--------------------------------------------------
+  Total Accesses : 12
+  Reads          : 12  (hits: 7, misses: 5)
+  Writes         : 0 (hits: 0, misses: 0)
+  Hit Rate       : 0.5833
+  Miss Rate      : 0.4167
+  Evictions      : 0
+  Dirty Evictions: 0
+  Writebacks     : 0
+  Memory Traffic : 5 block transfers
+==================================================
+
+--- [CPI Analysis Approximation] ---Stall CPI Component: 570 stalls / ~(Instruction Fetches) = 17.8125
+--- Testing Associativity: 2-way ---
+
+
+--- [Simulation Completed] ---Total Stalls Handled: 500 cycles
+[Cache Performance Reports]
+==================================================
+Cache Report: L1
+==================================================
+  Organization : set-associative
+  Size         : 32768 B
+  Block Size   : 64 B
+  Associativity: 2-way
+  Write Policy : write-back
+  Replacement  : lru
+--------------------------------------------------
+  Total Accesses : 32
+  Reads          : 32  (hits: 27, misses: 5)
+  Writes         : 0 (hits: 0, misses: 0)
+  Hit Rate       : 0.8438
+  Miss Rate      : 0.1562
+  Evictions      : 0
+  Dirty Evictions: 0
+  Writebacks     : 0
+  Memory Traffic : 5 block transfers
+==================================================
+
+==================================================
+Cache Report: L2
+==================================================
+  Organization : set-associative
+  Size         : 262144 B
+  Block Size   : 64 B
+  Associativity: 4-way
+  Write Policy : write-back
+  Replacement  : lru
+--------------------------------------------------
+  Total Accesses : 5
+  Reads          : 5  (hits: 0, misses: 5)
+  Writes         : 0 (hits: 0, misses: 0)
+  Hit Rate       : 0.0000
+  Miss Rate      : 1.0000
+  Evictions      : 0
+  Dirty Evictions: 0
+  Writebacks     : 0
+  Memory Traffic : 5 block transfers
+==================================================
+
+--- [CPI Analysis Approximation] ---Stall CPI Component: 500 stalls / ~(Instruction Fetches) = 15.6250
+--- Testing Associativity: 4-way ---
+
+
+--- [Simulation Completed] ---Total Stalls Handled: 500 cycles
+[Cache Performance Reports]
+==================================================
+Cache Report: L1
+==================================================
+  Organization : set-associative
+  Size         : 32768 B
+  Block Size   : 64 B
+  Associativity: 4-way
+  Write Policy : write-back
+  Replacement  : lru
+--------------------------------------------------
+  Total Accesses : 32
+  Reads          : 32  (hits: 27, misses: 5)
+  Writes         : 0 (hits: 0, misses: 0)
+  Hit Rate       : 0.8438
+  Miss Rate      : 0.1562
+  Evictions      : 0
+  Dirty Evictions: 0
+  Writebacks     : 0
+  Memory Traffic : 5 block transfers
+==================================================
+
+==================================================
+Cache Report: L2
+==================================================
+  Organization : set-associative
+  Size         : 262144 B
+  Block Size   : 64 B
+  Associativity: 4-way
+  Write Policy : write-back
+  Replacement  : lru
+--------------------------------------------------
+  Total Accesses : 5
+  Reads          : 5  (hits: 0, misses: 5)
+  Writes         : 0 (hits: 0, misses: 0)
+  Hit Rate       : 0.0000
+  Miss Rate      : 1.0000
+  Evictions      : 0
+  Dirty Evictions: 0
+  Writebacks     : 0
+  Memory Traffic : 5 block transfers
+==================================================
+
+--- [CPI Analysis Approximation] ---Stall CPI Component: 500 stalls / ~(Instruction Fetches) = 15.6250
+--- Testing Associativity: 8-way ---
+
+
+--- [Simulation Completed] ---Total Stalls Handled: 500 cycles
+[Cache Performance Reports]
+==================================================
+Cache Report: L1
+==================================================
+  Organization : set-associative
+  Size         : 32768 B
+  Block Size   : 64 B
+  Associativity: 8-way
+  Write Policy : write-back
+  Replacement  : lru
+--------------------------------------------------
+  Total Accesses : 32
+  Reads          : 32  (hits: 27, misses: 5)
+  Writes         : 0 (hits: 0, misses: 0)
+  Hit Rate       : 0.8438
+  Miss Rate      : 0.1562
+  Evictions      : 0
+  Dirty Evictions: 0
+  Writebacks     : 0
+  Memory Traffic : 5 block transfers
+==================================================
+
+==================================================
+Cache Report: L2
+==================================================
+  Organization : set-associative
+  Size         : 262144 B
+  Block Size   : 64 B
+  Associativity: 4-way
+  Write Policy : write-back
+  Replacement  : lru
+--------------------------------------------------
+  Total Accesses : 5
+  Reads          : 5  (hits: 0, misses: 5)
+  Writes         : 0 (hits: 0, misses: 0)
+  Hit Rate       : 0.0000
+  Miss Rate      : 1.0000
+  Evictions      : 0
+  Dirty Evictions: 0
+  Writebacks     : 0
+  Memory Traffic : 5 block transfers
+==================================================
+
+--- [CPI Analysis Approximation] ---Stall CPI Component: 500 stalls / ~(Instruction Fetches) = 15.6250
+--- Testing Associativity: 16-way ---
+
+
+--- [Simulation Completed] ---Total Stalls Handled: 500 cycles
+[Cache Performance Reports]
+==================================================
+Cache Report: L1
+==================================================
+  Organization : set-associative
+  Size         : 32768 B
+  Block Size   : 64 B
+  Associativity: 16-way
+  Write Policy : write-back
+  Replacement  : lru
+--------------------------------------------------
+  Total Accesses : 32
+  Reads          : 32  (hits: 27, misses: 5)
+  Writes         : 0 (hits: 0, misses: 0)
+  Hit Rate       : 0.8438
+  Miss Rate      : 0.1562
+  Evictions      : 0
+  Dirty Evictions: 0
+  Writebacks     : 0
+  Memory Traffic : 5 block transfers
+==================================================
+
+==================================================
+Cache Report: L2
+==================================================
+  Organization : set-associative
+  Size         : 262144 B
+  Block Size   : 64 B
+  Associativity: 4-way
+  Write Policy : write-back
+  Replacement  : lru
+--------------------------------------------------
+  Total Accesses : 5
+  Reads          : 5  (hits: 0, misses: 5)
+  Writes         : 0 (hits: 0, misses: 0)
+  Hit Rate       : 0.0000
+  Miss Rate      : 1.0000
+  Evictions      : 0
+  Dirty Evictions: 0
+  Writebacks     : 0
+  Memory Traffic : 5 block transfers
+==================================================
+
+--- [CPI Analysis Approximation] ---Stall CPI Component: 500 stalls / ~(Instruction Fetches) = 15.6250
+
+--- TESTING Write Policy Variations ---
+
+
+--- Testing Write Policy: write-back ---
+
+
+--- [Simulation Completed] ---Total Stalls Handled: 500 cycles
+[Cache Performance Reports]
+==================================================
+Cache Report: L1
+==================================================
+  Organization : set-associative
+  Size         : 32768 B
+  Block Size   : 64 B
+  Associativity: 2-way
+  Write Policy : write-back
+  Replacement  : lru
+--------------------------------------------------
+  Total Accesses : 32
+  Reads          : 32  (hits: 27, misses: 5)
+  Writes         : 0 (hits: 0, misses: 0)
+  Hit Rate       : 0.8438
+  Miss Rate      : 0.1562
+  Evictions      : 0
+  Dirty Evictions: 0
+  Writebacks     : 0
+  Memory Traffic : 5 block transfers
+==================================================
+
+==================================================
+Cache Report: L2
+==================================================
+  Organization : set-associative
+  Size         : 262144 B
+  Block Size   : 64 B
+  Associativity: 4-way
+  Write Policy : write-back
+  Replacement  : lru
+--------------------------------------------------
+  Total Accesses : 5
+  Reads          : 5  (hits: 0, misses: 5)
+  Writes         : 0 (hits: 0, misses: 0)
+  Hit Rate       : 0.0000
+  Miss Rate      : 1.0000
+  Evictions      : 0
+  Dirty Evictions: 0
+  Writebacks     : 0
+  Memory Traffic : 5 block transfers
+==================================================
+
+--- [CPI Analysis Approximation] ---Stall CPI Component: 500 stalls / ~(Instruction Fetches) = 15.6250
+--- Testing Write Policy: write-through ---
+
+
+--- [Simulation Completed] ---Total Stalls Handled: 500 cycles
+[Cache Performance Reports]
+==================================================
+Cache Report: L1
+==================================================
+  Organization : set-associative
+  Size         : 32768 B
+  Block Size   : 64 B
+  Associativity: 2-way
+  Write Policy : write-through
+  Replacement  : lru
+--------------------------------------------------
+  Total Accesses : 32
+  Reads          : 32  (hits: 27, misses: 5)
+  Writes         : 0 (hits: 0, misses: 0)
+  Hit Rate       : 0.8438
+  Miss Rate      : 0.1562
+  Evictions      : 0
+  Dirty Evictions: 0
+  Writebacks     : 0
+  Memory Traffic : 5 block transfers
+==================================================
+
+==================================================
+Cache Report: L2
+==================================================
+  Organization : set-associative
+  Size         : 262144 B
+  Block Size   : 64 B
+  Associativity: 4-way
+  Write Policy : write-through
+  Replacement  : lru
+--------------------------------------------------
+  Total Accesses : 5
+  Reads          : 5  (hits: 0, misses: 5)
+  Writes         : 0 (hits: 0, misses: 0)
+  Hit Rate       : 0.0000
+  Miss Rate      : 1.0000
+  Evictions      : 0
+  Dirty Evictions: 0
+  Writebacks     : 0
+  Memory Traffic : 5 block transfers
+==================================================
+
+--- [CPI Analysis Approximation] ---Stall CPI Component: 500 stalls / ~(Instruction Fetches) = 15.6250
+
+--- TESTING Replacement Policy Variations ---
+
+
+--- Testing Replacement Policy: lru ---
+
+
+--- [Simulation Completed] ---Total Stalls Handled: 500 cycles
+[Cache Performance Reports]
+==================================================
+Cache Report: L1
+==================================================
+  Organization : set-associative
+  Size         : 32768 B
+  Block Size   : 64 B
+  Associativity: 2-way
+  Write Policy : write-back
+  Replacement  : lru
+--------------------------------------------------
+  Total Accesses : 32
+  Reads          : 32  (hits: 27, misses: 5)
+  Writes         : 0 (hits: 0, misses: 0)
+  Hit Rate       : 0.8438
+  Miss Rate      : 0.1562
+  Evictions      : 0
+  Dirty Evictions: 0
+  Writebacks     : 0
+  Memory Traffic : 5 block transfers
+==================================================
+
+==================================================
+Cache Report: L2
+==================================================
+  Organization : set-associative
+  Size         : 262144 B
+  Block Size   : 64 B
+  Associativity: 4-way
+  Write Policy : write-back
+  Replacement  : lru
+--------------------------------------------------
+  Total Accesses : 5
+  Reads          : 5  (hits: 0, misses: 5)
+  Writes         : 0 (hits: 0, misses: 0)
+  Hit Rate       : 0.0000
+  Miss Rate      : 1.0000
+  Evictions      : 0
+  Dirty Evictions: 0
+  Writebacks     : 0
+  Memory Traffic : 5 block transfers
+==================================================
+
+--- [CPI Analysis Approximation] ---Stall CPI Component: 500 stalls / ~(Instruction Fetches) = 15.6250
+--- Testing Replacement Policy: fifo ---
+
+
+--- [Simulation Completed] ---Total Stalls Handled: 500 cycles
+[Cache Performance Reports]
+==================================================
+Cache Report: L1
+==================================================
+  Organization : set-associative
+  Size         : 32768 B
+  Block Size   : 64 B
+  Associativity: 2-way
+  Write Policy : write-back
+  Replacement  : fifo
+--------------------------------------------------
+  Total Accesses : 32
+  Reads          : 32  (hits: 27, misses: 5)
+  Writes         : 0 (hits: 0, misses: 0)
+  Hit Rate       : 0.8438
+  Miss Rate      : 0.1562
+  Evictions      : 0
+  Dirty Evictions: 0
+  Writebacks     : 0
+  Memory Traffic : 5 block transfers
+==================================================
+
+==================================================
+Cache Report: L2
+==================================================
+  Organization : set-associative
+  Size         : 262144 B
+  Block Size   : 64 B
+  Associativity: 4-way
+  Write Policy : write-back
+  Replacement  : fifo
+--------------------------------------------------
+  Total Accesses : 5
+  Reads          : 5  (hits: 0, misses: 5)
+  Writes         : 0 (hits: 0, misses: 0)
+  Hit Rate       : 0.0000
+  Miss Rate      : 1.0000
+  Evictions      : 0
+  Dirty Evictions: 0
+  Writebacks     : 0
+  Memory Traffic : 5 block transfers
+==================================================
+
+--- [CPI Analysis Approximation] ---Stall CPI Component: 500 stalls / ~(Instruction Fetches) = 15.6250
+
+--- TESTING Prefetch ---
+
+
+--- Testing Prefetch: Disabled ---
+
+
+--- [Simulation Completed] ---Total Stalls Handled: 500 cycles
+[Cache Performance Reports]
+==================================================
+Cache Report: L1
+==================================================
+  Organization : set-associative
+  Size         : 32768 B
+  Block Size   : 64 B
+  Associativity: 2-way
+  Write Policy : write-back
+  Replacement  : lru
+--------------------------------------------------
+  Total Accesses : 32
+  Reads          : 32  (hits: 27, misses: 5)
+  Writes         : 0 (hits: 0, misses: 0)
+  Hit Rate       : 0.8438
+  Miss Rate      : 0.1562
+  Evictions      : 0
+  Dirty Evictions: 0
+  Writebacks     : 0
+  Memory Traffic : 5 block transfers
+==================================================
+
+==================================================
+Cache Report: L2
+==================================================
+  Organization : set-associative
+  Size         : 262144 B
+  Block Size   : 64 B
+  Associativity: 4-way
+  Write Policy : write-back
+  Replacement  : lru
+--------------------------------------------------
+  Total Accesses : 5
+  Reads          : 5  (hits: 0, misses: 5)
+  Writes         : 0 (hits: 0, misses: 0)
+  Hit Rate       : 0.0000
+  Miss Rate      : 1.0000
+  Evictions      : 0
+  Dirty Evictions: 0
+  Writebacks     : 0
+  Memory Traffic : 5 block transfers
+==================================================
+
+--- [CPI Analysis Approximation] ---Stall CPI Component: 500 stalls / ~(Instruction Fetches) = 15.6250
+[Prefetcher Performance]
+Prefetches Issued: 0
+Prefetches Useful: 0
+Prefetches Useless: 0
+Prefetch Coverage: 0.00%
+--- Testing Prefetch: Enabled ---
+
+
+--- [Simulation Completed] ---Total Stalls Handled: 400 cycles
+[Cache Performance Reports]
+==================================================
+Cache Report: L1
+==================================================
+  Organization : set-associative
+  Size         : 32768 B
+  Block Size   : 64 B
+  Associativity: 2-way
+  Write Policy : write-back
+  Replacement  : lru
+--------------------------------------------------
+  Total Accesses : 32
+  Reads          : 32  (hits: 28, misses: 4)
+  Writes         : 0 (hits: 0, misses: 0)
+  Hit Rate       : 0.8750
+  Miss Rate      : 0.1250
+  Evictions      : 0
+  Dirty Evictions: 0
+  Writebacks     : 0
+  Memory Traffic : 4 block transfers
+==================================================
+
+==================================================
+Cache Report: L2
+==================================================
+  Organization : set-associative
+  Size         : 262144 B
+  Block Size   : 64 B
+  Associativity: 4-way
+  Write Policy : write-back
+  Replacement  : lru
+--------------------------------------------------
+  Total Accesses : 4
+  Reads          : 4  (hits: 0, misses: 4)
+  Writes         : 0 (hits: 0, misses: 0)
+  Hit Rate       : 0.0000
+  Miss Rate      : 1.0000
+  Evictions      : 0
+  Dirty Evictions: 0
+  Writebacks     : 0
+  Memory Traffic : 4 block transfers
+==================================================
+
+--- [CPI Analysis Approximation] ---Stall CPI Component: 400 stalls / ~(Instruction Fetches) = 12.5000
+[Prefetcher Performance]
+Prefetches Issued: 4
+Prefetches Useful: 1
+Prefetches Useless: 0
+Prefetch Coverage: 25.00%

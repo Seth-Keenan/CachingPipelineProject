@@ -39,6 +39,9 @@ class CacheSet:
     def mark_dirty(self, way: int):
         self.lines[way].dirty = True
 
+    def probe(self, tag: int) -> bool:
+        return any(line.valid and line.tag == tag for line in self.lines)
+
     def _find_empty_way(self) -> int | None:
         for way, line in enumerate(self.lines):
             if not line.valid:

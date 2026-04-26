@@ -9,30 +9,32 @@ from next_line_prefetcher import NextLinePrefetcher
 class Cache:
     def __init__(
         self,
-        name:           str,
-        cache_size:     int,
-        block_size:     int,
-        associativity:  int,
-        write_policy:   WritePolicy       = WritePolicy.WRITE_BACK,
-        replacement:    ReplacementPolicy = ReplacementPolicy.LRU,
-        next_level:     "Cache"           = None,
+        name: str,
+        cache_size: int,
+        block_size: int,
+        associativity: int,
+        write_policy: WritePolicy = WritePolicy.WRITE_BACK,
+        replacement: ReplacementPolicy = ReplacementPolicy.LRU,
+        next_level: "Cache" = None,
         next_line_prefetcher: NextLinePrefetcher = None,
+        prefetcher_enabled = False,
     ):
         self._validate(cache_size, block_size)
 
-        self.name          = name
-        self.cache_size    = cache_size
-        self.block_size    = block_size
+        self.name = name
+        self.cache_size = cache_size
+        self.block_size = block_size
         self.associativity = associativity
-        self.write_policy  = write_policy
-        self.replacement   = replacement
-        self.next_level    = next_level
-        self.prefetcher    = next_line_prefetcher
+        self.write_policy = write_policy
+        self.replacement = replacement
+        self.next_level = next_level
+        self.prefetcher = next_line_prefetcher
+        self.prefetcher_enabled = prefetcher_enabled
 
-        self.num_blocks  = cache_size // block_size
-        self.num_sets    = max(self.num_blocks // associativity, 1)
+        self.num_blocks = cache_size // block_size
+        self.num_sets = max(self.num_blocks // associativity, 1)
         self.offset_bits = int(log2(block_size))
-        self.index_bits  = int(log2(self.num_sets)) if self.num_sets > 1 else 0
+        self.index_bits = int(log2(self.num_sets)) if self.num_sets > 1 else 0
 
         if associativity == 1:
             self.organization = Organization.DIRECT_MAPPED
@@ -62,10 +64,12 @@ class Cache:
             return True
 
         self.stats["read_misses"] += 1
+        self._record_compulsory(address)
         self._handle_miss(self.sets[set_idx], tag, address, is_write=False)
 
         if self.prefetcher:
-            self.prefetcher.on_miss(address)
+            if self.prefetcher_enabled:
+                self.prefetcher.on_miss(address)
 
         return False
 
@@ -81,8 +85,15 @@ class Cache:
             return True
 
         self.stats["write_misses"] += 1
+        self._record_compulsory(address)
         self._apply_write_policy_on_miss(self.sets[set_idx], tag, address)
         return False
+
+    def _record_compulsory(self, address: int):
+        block_addr = address >> self.offset_bits
+        if block_addr not in self._seen_blocks:
+            self._seen_blocks.add(block_addr)
+            self.stats["compulsory_misses"] += 1
 
     def _apply_write_policy_on_hit(self, cache_set: CacheSet,
                                    way: int, address: int):
@@ -128,8 +139,11 @@ class Cache:
             wb_address = evicted_tag << (self.offset_bits + self.index_bits)
             self.next_level.write(wb_address)
 
+    def probe(self, address: int) -> bool:
+        tag, set_idx, _ = self._decompose(address)
+        return self.sets[set_idx].probe(tag)
+
     def _decompose(self, address: int) -> tuple[int, int, int]:
-        """Split address into (tag, set_index, block_offset)."""
         offset    = address & (self.block_size - 1)
         set_index = (address >> self.offset_bits) & (self.num_sets - 1) \
                     if self.num_sets > 1 else 0
@@ -151,6 +165,7 @@ class Cache:
 
     def reset_stats(self):
         self._init_stats()
+        self._seen_blocks = set()
 
     def report(self) -> str:
         s = self.stats
@@ -172,6 +187,8 @@ class Cache:
             f"(hits: {s['write_hits']}, misses: {s['write_misses']})\n"
             f"  Hit Rate       : {self.hit_rate:.4f}\n"
             f"  Miss Rate      : {self.miss_rate:.4f}\n"
+            f"  Compulsory Misses   : {s['compulsory_misses']}\n"
+            f"  Non-Compulsory Miss : {s['read_misses'] + s['write_misses'] - s['compulsory_misses']}\n"
             f"  Evictions      : {s['evictions']}\n"
             f"  Dirty Evictions: {s['dirty_evictions']}\n"
             f"  Writebacks     : {s['writebacks']}\n"
@@ -186,17 +203,19 @@ class Cache:
 
     def _init_stats(self):
         self.stats = {
-            "reads":           0,
-            "writes":          0,
-            "read_hits":       0,
-            "write_hits":      0,
-            "read_misses":     0,
-            "write_misses":    0,
-            "evictions":       0,
+            "reads": 0,
+            "writes": 0,
+            "read_hits": 0,
+            "write_hits": 0,
+            "read_misses": 0,
+            "write_misses": 0,
+            "evictions": 0,
             "dirty_evictions": 0,
-            "writebacks":      0,
-            "mem_traffic":     0,
+            "writebacks": 0,
+            "mem_traffic": 0,
+            "compulsory_misses":  0,
         }
+        self._seen_blocks: set[int] = set()
 
     @staticmethod
     def _validate(cache_size: int, block_size: int):

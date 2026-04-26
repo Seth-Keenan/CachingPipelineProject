@@ -1,0 +1,9 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Generated experiment output
+results/
+traces/
+cache_test_report.txt

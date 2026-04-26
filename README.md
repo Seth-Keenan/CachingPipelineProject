@@ -1,33 +1,66 @@
-# Caching Pipeline Simulation Project
 
-This project is a Python-based computer architecture simulation of a multi-level CPU caching hierarchy. It models the behavior of CPU caches, tracking hits, misses, evictions, and memory traffic, as well as calculating structural statistics like Average Memory Access Time (AMAT). 
+# 1. Generate the three workload trace files (run once)
+python generate_traces.py
 
-## Overview
+# 2. Run all experiments — outputs CSVs to results/
+python simulate_trace.py
 
-The simulator decomposes memory addresses into `Tag`, `Set Index`, and `Block Offset` to route access requests. It fully supports N-way set associative caches, direct-mapped, and fully associative structures.
+# 3. Generate all figures — outputs PDFs and PNGs to results/figures/
+python visualize.py
 
-### Key Features
-* **Multi-Level Hierarchy:** Configurable support for L1 and L2 caching (and beyond, simply by linking the `next_level` property).
-* **Write Policies:** Supports `Write-Back` and `Write-Through` operations.
-* **Replacement Policies:** Ships with `LRU` (Least Recently Used) and `FIFO` algorithms for cache line eviction.
-* **Statistics & Reporting:** Automatically measures read/write hits and misses, cache line evictions, writebacks, and computes properties like AMAT and Hit/Miss Rates.
+`simulate_trace.py` runs all 8 required experiments against all three workloads
+and writes one CSV per experiment to `results/`:
 
-## Architecture & Code Structure
+| Experiment | Variable | Output CSV |
+|---|---|---|
+| E1 | L1 cache size (4–64 KB) | `e1_cache_size.csv` |
+| E2 | Associativity (1, 2, 4, 8-way) | `e2_associativity.csv` |
+| E3 | Block size (16–256 B) | `e3_block_size.csv` |
+| E4 | Write policy (WB vs WT) | `e4_write_policy.csv` |
+| E5 | Replacement policy (LRU vs FIFO) | `e5_replacement.csv` |
+| E6 | Prefetching on vs off | `e6_prefetch.csv` |
+| E7 | Workload sensitivity | `e7_workload.csv` |
+| E8 | L2 cache size (128 KB–2 MB) | `e8_l2_size.csv` |
 
-* **`cache.py` (`Cache`):** The core module that orchestrates read/write requests. It handles address decomposition, drives hits/misses, applies write policies, and links to lower-level caches (e.g. L1 falling back to L2).
-* **`cache_set.py` (`CacheSet`):** Models an individual set within the cache. Given a set associativity, it manages `N` cache lines and utilizes the specified replacement strategy to handle installation and eviction.
-* **`cache_line.py` (`CacheLine`):** Represents exactly one cache block, storing state flags (valid/dirty), the tag, and simulated data.
-* **`replacement.py`:** Defines the `ReplacementStrategy` abstract base class and implements `LRUPolicy` and `FIFOPolicy`. Provides a factory `make_replacement_policy()` for instantiation.
-* **`hierarchy.py`:** A builder helper to quickly instantiate and wire together an L1 and L2 cache.
-* **`enums.py`:** Contains enumerations for Write Policies, Replacement Policies, and Organizaton Types to ensure type-safe configurations.
-* **`main.py`:** A smoke test driver that instantiates an L1/L2 hierarchy, runs sequential accesses, repeat reads, and writes, then prints a performance report.
+## Figures
 
-## Usage
+`visualize.py` reads the CSVs and saves both PDF and PNG to `results/figures/`:
 
-To run the smoke test and see the caching simulator in action, run:
+| Figure | Description |
+|---|---|
+| Fig 2 | Miss rate vs. L1 cache size (log-x), one curve per workload |
+| Fig 3 | AMAT vs. block size, one curve per associativity level |
+| Fig 4 | CPI decomposition stacked bar chart (ideal + L1 stall + L2 stall) |
+| Fig 5 | Write-through vs. write-back memory traffic (normalized) |
+| Fig 6 | Prefetch coverage and useless-prefetch rate vs. block size |
+---
 
-```bash
-python main.py
+## Cache Configuration
+
+All parameters are set when constructing a `Cache` object or via `build_hierarchy()`:
+
+| Parameter | Options | Default |
+|---|---|---|
+| `cache_size` | Any power-of-2 bytes | — |
+| `block_size` | Any power-of-2 bytes | 64 |
+| `associativity` | 1 (direct-mapped), N, or `num_blocks` (fully associative) | 4 |
+| `write_policy` | `WritePolicy.WRITE_BACK`, `WritePolicy.WRITE_THROUGH` | `WRITE_BACK` |
+| `replacement` | `ReplacementPolicy.LRU`, `ReplacementPolicy.FIFO` | `LRU` |
+
+Example:
+```python
+from hierarchy import build_hierarchy
+from enums import WritePolicy, ReplacementPolicy
+
+l1, l2 = build_hierarchy(
+    l1_size=32768, l1_block_size=64, l1_associativity=4,
+    l1_write_policy=WritePolicy.WRITE_BACK,
+    l1_replacement=ReplacementPolicy.LRU,
+    l2_size=262144, l2_block_size=64, l2_associativity=4,
+    prefetcher_enabled=True,
+)
+
+l1.read(0x10004000)
+l1.write(0x10004008)
+print(l1.report())
 ```
-
-This will run simulated memory traces on a 1024B 2-way L1 cache and 8192B 4-way L2 cache, printing a detailed hit/miss breakdown for both levels and calculating the overall AMAT.
