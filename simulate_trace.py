@@ -40,25 +40,25 @@ def run_experiment(trace, prefetch=False, **hierarchy_kwargs) -> dict:
     l2_stalls = 0
 
     for rec in trace:
-        before_l1 = l1.stats["read_misses"] + l1.stats["write_misses"]
-        before_l2 = l2.stats["read_misses"] + l2.stats["write_misses"]
-
         if rec["type"] == "S":
             l1.write(rec["address"])
         else:
             l1.read(rec["address"])
 
-        l1_missed = (l1.stats["read_misses"] + l1.stats["write_misses"]) > before_l1
-        l2_missed = (l2.stats["read_misses"] + l2.stats["write_misses"]) > before_l2
-
-        if l1_missed and not l2_missed:
-            l1_stalls += L2_HIT_TIME
-        elif l2_missed:
-            l2_stalls += DRAM_PENALTY
 
     n = len(trace)
-    cpi_l1    = l1_stalls / n if n else 0.0
-    cpi_l2    = l2_stalls / n if n else 0.0
+
+    l1_total_misses = l1.stats["read_misses"] + l1.stats["write_misses"]
+    l2_total_misses = l2.stats["read_misses"] + l2.stats["write_misses"]
+
+    l1_miss_rate = l1_total_misses / n if n else 0.0
+    l2_miss_rate = l2_total_misses / n if n else 0.0
+
+    mem_ops = sum(1 for rec in trace if rec["type"] in ["L", "S"])
+    mem_fraction = mem_ops / n if n else 0.0
+
+    cpi_l1 = l1_miss_rate * L2_HIT_TIME * mem_fraction
+    cpi_l2 = l1_miss_rate * l2_miss_rate * DRAM_PENALTY * mem_fraction
     cpi_total = 1.0 + cpi_l1 + cpi_l2
 
     l2_amat = L2_HIT_TIME + l2.miss_rate * DRAM_PENALTY

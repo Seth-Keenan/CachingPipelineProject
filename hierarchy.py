@@ -27,6 +27,7 @@ def build_hierarchy(
         write_policy  = l2_write_policy,
         replacement   = l2_replacement,
         next_level    = None,
+        prefetcher_enabled = prefetcher_enabled,
     )
     
     l1 = Cache(
@@ -37,10 +38,12 @@ def build_hierarchy(
         write_policy  = l1_write_policy,
         replacement   = l1_replacement,
         next_level    = l2,
-        next_line_prefetcher = next_line_prefetcher,
         prefetcher_enabled = prefetcher_enabled,
     )
 
     l1_prefetcher = NextLinePrefetcher(l1, l1_block_size)
     l1.prefetcher = l1_prefetcher
+
+    l2_prefetcher = NextLinePrefetcher(l2, l2_block_size)
+    l2.prefetcher = l2_prefetcher
     return l1, l2
