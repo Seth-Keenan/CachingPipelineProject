@@ -52,7 +52,7 @@ def run_experiment(trace, prefetch=False, **hierarchy_kwargs) -> dict:
     l2_total_misses = l2.stats["read_misses"] + l2.stats["write_misses"]
 
     l1_miss_rate = l1_total_misses / n if n else 0.0
-    l2_miss_rate = l2_total_misses / n if n else 0.0
+    l2_miss_rate = l2_total_misses / l1_total_misses if l1_total_misses else 0.0
 
     mem_ops = sum(1 for rec in trace if rec["type"] in ["L", "S"])
     mem_fraction = mem_ops / n if n else 0.0
