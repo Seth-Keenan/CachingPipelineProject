@@ -125,9 +125,9 @@ def fig5_write_policy_traffic():
     rows = load_csv("e4_write_policy.csv")
 
     wl_order = WORKLOADS
-    policies  = ["write_back", "write_through"]
-    policy_labels = {"write_back": "Write-Back", "write_through": "Write-Through"}
-    colors_p  = {"write_back": "#4C72B0", "write_through": "#DD8452"}
+    policies  = ["write-back", "write-through"]
+    policy_labels = {"write-back": "Write-Back", "write-through": "Write-Through"}
+    colors_p  = {"write-back": "#4C72B0", "write-through": "#DD8452"}
 
     # Collect traffic per (workload, policy)
     traffic = defaultdict(dict)
@@ -142,7 +142,7 @@ def fig5_write_policy_traffic():
     for i, policy in enumerate(policies):
         vals = []
         for wl in wl_order:
-            wb_val = traffic[wl].get("write_back", 1)
+            wb_val = traffic[wl].get("write-back", 1)
             raw    = traffic[wl].get(policy, 0)
             vals.append(raw / wb_val if wb_val else 0)
         ax.bar(x + i * width, vals, width,
